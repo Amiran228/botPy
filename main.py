@@ -333,7 +333,7 @@ async def process_callback_menubutton(callback_query: types.CallbackQuery):
 
 @dp.message_handler(commands=['techsupport'])
 async def techSupport(message: types.Message):
-    await message.answer("Он во всем виноват - @lkk_lkk")
+    await message.answer("Он во всем виноват - @Wam_Pan1")
 
 
 @dp.message_handler(commands=['howtouse'])
