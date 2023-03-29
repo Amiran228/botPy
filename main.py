@@ -61,6 +61,11 @@ text_human_and_society = 'ЧЕЛОВЕК И ОБЩЕСТВО\n \n1. Деятел
                          '\n26. Ответственность \n27.Социальный институт \n28. Культура  \n29. Элитарная культура \n30. Массовая культура ' \
                          '\n31. Народная культура \n32. Реформа \n33. Революция \n34. Общественный прогресс \n35. Традиционное общество ' \
                          '\n36. Индустриальное общество \n37. Постиндустриальное общество \n38. Глобализация \n39. Глобальные проблемы человечества'
+text_social_relations = 'Социальные отношения \n \n1. Семья как малая группа \n2. Социальные ценности \3. Социальные нормы \n4. Отклоняющееся поведение' \
+                        '\n5. Социальный контроль \n6. Социальный конфликт \n7. Социализация \n8. Социальный статус \n9. Социальная роль' \
+                        '\n10. Социальная стратификация \n11. Социальная мобильность \n12. Личность \n13. Нация \n14. Социальная группа \n15. Молодежь ' \
+                        '\n16. Этнос (этническая общность) \n17. Этносоциальный конфликт \n18. Межнациональные отношения \n19. Антисоциальное поведение' \
+                        '\n20. Малая группа \n21. Молодежная субкультура '
 
 
 @dp.callback_query_handler(lambda c: c.data and c.data.startswith('menu_'))  # обработчик инлайн кнопок меню
@@ -291,7 +296,7 @@ async def process_callback_menubutton(callback_query: types.CallbackQuery):
                                           '\n2.	охватывает все сферы общества '
                                           '\n3.	противоречивый характер (положительные и отрицательные последствия)')
             elif message_name == '39':
-                await message.answer(text='Глобальные '
+                await message.answer(text='Глобальные проблемы человечества'
                                           '\n1.	решение проблемы возможно только совместным усилиями '
                                           '\n2.	затрагивают жизнедеятельность всего человечества, мировой масштаб '
                                           '\n3.	от их решения зависит судьба всего человечества ')
@@ -300,6 +305,18 @@ async def process_callback_menubutton(callback_query: types.CallbackQuery):
 
         await bot.answer_callback_query(callback_query.id, text='Нажата первая кнопка')
     elif code == 'menu_social_relations':
+        await bot.send_message(chat_id=user_id,
+                               text=text_social_relations)
+
+        @dp.message_handler()
+        async def social_relations(message: types.Message):
+            user_id2 = message.from_user.id
+            message_name = message.text
+            user_full_name = message.from_user.full_name
+            logging.info(f'{user_id2} {user_full_name} {time.asctime()} {message_name}')
+            if message_name == '1':
+                await message.answer(text="")
+
         await bot.answer_callback_query(callback_query.id, text='Нажата вторая кнопка')
     elif code == 'menu_3':
         await bot.answer_callback_query(callback_query.id, text='Нажата третья кнопка')
@@ -337,3 +354,6 @@ async def echo(message: types.Message):
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
+
+# def text_for_human_and_society():
+# сюда нужно запихнуть блоки ответов для меню(несколько функций)
